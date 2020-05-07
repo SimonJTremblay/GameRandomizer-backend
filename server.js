@@ -23,4 +23,7 @@ app.use('/Collection', gameCollectionRouter)
 const userRouter = require('./routes/user-router')
 app.use('/User', userRouter)
 
+const gameLogRouter = require('./routes/gamelog-router')
+app.use('/GameLog', gameLogRouter)
+
 app.listen(3000, () => console.log('server started'))
