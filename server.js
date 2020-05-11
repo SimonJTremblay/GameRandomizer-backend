@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser= require('body-parser')
 const mongoose = require('mongoose')
 const cors = require('cors');
+const port = process.env.PORT
 
 require('dotenv').config()
 
@@ -26,4 +27,4 @@ app.use('/User', userRouter)
 const gameLogRouter = require('./routes/gamelog-router')
 app.use('/GameLog', gameLogRouter)
 
-app.listen(3000, () => console.log('server started'))
+app.listen(port, () => console.log(`Server running on port ${port}`))
