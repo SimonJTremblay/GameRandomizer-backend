@@ -1,30 +1,35 @@
-const express = require('express');
-const bodyParser= require('body-parser')
-const mongoose = require('mongoose')
-const cors = require('cors');
-const port = process.env.PORT
+// Third party
+import bodyParser from 'body-parser';
+import cors from 'cors';
+import dotenv from 'dotenv';
+import express, { json } from 'express';
+import mongoose from 'mongoose';
+// Local
+import gameCollectionRouter from './routes/collection-router.js';
+import gameLogRouter from './routes/gamelog-router.js';
+import userRouter from './routes/user-router.js';
 
-require('dotenv').config()
+dotenv.config();
+const port = process.env.PORT;
+
+const { connect, connection } = mongoose;
+const { urlencoded } = bodyParser;
 
 const app = express();
-app.use(express.json())
+app.use(json());
 app.use(cors());
 
-app.use(bodyParser.urlencoded({extended: true}))
+app.use(urlencoded({ extended: true }));
 
-mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true, useUnifiedTopology: true})
-const db = mongoose.connection
-db.on('error', (error) => console.error(error))
-db.once('open', () => console.log('connected to database'))
+connect(process.env.DATABASE_URL, { useNewUrlParser: true, useUnifiedTopology: true });
+const db = connection;
+db.on('error', (error) => console.error(error));
+db.once('open', () => console.log('connected to database'));
 
+app.use('/Collection', gameCollectionRouter);
 
-const gameCollectionRouter = require('./routes/collection-router')
-app.use('/Collection', gameCollectionRouter)
+app.use('/User', userRouter);
 
-const userRouter = require('./routes/user-router')
-app.use('/User', userRouter)
+app.use('/GameLog', gameLogRouter);
 
-const gameLogRouter = require('./routes/gamelog-router')
-app.use('/GameLog', gameLogRouter)
-
-app.listen(port, () => console.log(`Server running on port ${port}`))
+app.listen(port, () => console.log(`Server running on port ${port}`));

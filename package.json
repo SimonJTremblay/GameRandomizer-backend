@@ -2,10 +2,11 @@
   "name": "gamerandomizerlocal-backend",
   "version": "1.0.0",
   "description": "",
+  "type": "module",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.js --require 'dotenv/config'"
   },
   "author": "",
   "license": "ISC",
@@ -13,11 +14,11 @@
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "mongodb": "^3.5.3",
-    "mongoose": "^5.9.2"
+    "mongodb": "^4.2.1",
+    "mongoose": "^6.1.0"
   },
   "devDependencies": {
-    "dotenv": "^8.2.0",
-    "nodemon": "^2.0.2"
+    "dotenv": "^10.0.0",
+    "nodemon": "^2.0.15"
   }
 }

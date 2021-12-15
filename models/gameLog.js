@@ -1,22 +1,22 @@
-const mongoose = require('mongoose')
-let Schema = mongoose.Schema
+import mongoose from 'mongoose';
 
-const logSchema = new Schema ({
-    gameId: String,
-    gameTitle: String,
-    players: [String],
-    type: ['COOP', 'TEAMS', 'FFA', 'STORY', 'WIN_LOSE', 'N/A'] ,
-    outcome: {},
-    datePlayed: Date,
-})
-const gameLogSchema = new Schema({
-    userId: {
-        type: String,
-        required: true,
-        unique: true
-    },
-    history: [logSchema]
-})
+const logSchema = new mongoose.Schema({
+  gameId: String,
+  gameTitle: String,
+  players: [String],
+  type: ['COOP', 'TEAMS', 'FFA', 'STORY', 'WIN_LOSE', 'N/A'],
+  outcome: {},
+  datePlayed: Date,
+});
+
+const gameLogSchema = new mongoose.Schema({
+  userId: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  history: [logSchema],
+});
 
 // exporting collection schema
-module.exports =  mongoose.model('GameLogs', gameLogSchema)
+export default mongoose.model('GameLogs', gameLogSchema);
